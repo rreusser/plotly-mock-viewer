@@ -1,5 +1,7 @@
 # plotly-standalone-mock-tester
 
+<img src="./screenshot.png" width="400">
+
 ## Introduction
 
 A budo-based live-reloading standalone tester for plotly mocks. Advantages:
