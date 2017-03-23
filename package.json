@@ -1,0 +1,23 @@
+{
+  "name": "plotly-standalone-mock-tester",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "plotly.js": "../plotly.js"
+  },
+  "devDependencies": {
+    "brfs": "^1.4.3",
+    "budo": "^9.4.7",
+    "es2040": "^1.2.5",
+    "h": "^0.1.0",
+    "hyperstream": "^1.2.2",
+    "insert-css": "^2.0.0",
+    "pkg-up": "^1.0.0",
+    "simple-html-index": "^1.5.0"
+  }
+}
