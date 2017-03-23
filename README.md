@@ -2,7 +2,12 @@
 
 ## Introduction
 
-A budo-based live-reloading standalone tester for plotly mocks. To use:
+A budo-based live-reloading standalone tester for plotly mocks. Advantages:
+
+- refetches mock list on each reload (no need to restart server when mocks change)
+- live reload (devtools server was slow to compile and threw error more often than not as a result when reloading)
+
+To use:
 
 ```bash
 $ git clone https://github.com/rreusser/plotly-standalone-mock-tester.git
