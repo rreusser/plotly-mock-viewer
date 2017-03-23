@@ -22,4 +22,5 @@ $ ./server.js
 ## License
 
 Includes source of MIT-licensed [`JavaScript-autoComplete`](https://github.com/Pixabay/JavaScript-autoComplete)
+
 &copy; 2017 Ricky Reusser. MIT License.
