@@ -3,9 +3,6 @@ html, body {
   paddng: 0;
 }
 
-#mock-selector {
-}
-
 #graph {
   border: 1px solid #ccc;
   display: inline-block;
