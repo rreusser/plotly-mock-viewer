@@ -1,117 +1,116 @@
-var fs = require('fs');
-var h = require('h');
-var gd;
-var Plotly = window.Plotly = require('plotly.js');
-var css = require('insert-css');
-var autocomplete;
+var fs = require('fs')
+var h = require('h')
+var gd
+var Plotly = window.Plotly = require('plotly.js')
+var css = require('insert-css')
+var autocomplete
 
-css(fs.readFileSync(__dirname + '/assets/auto-complete.css', 'utf8'));
-css(fs.readFileSync(__dirname + '/styles.css', 'utf8'));
+css(fs.readFileSync(__dirname + '/assets/auto-complete.css', 'utf8'))
+css(fs.readFileSync(__dirname + '/styles.css', 'utf8'))
 
 var bar = h('div', {id: 'bar'}, [
   h('h3', 'plotly.js mock viewer')
-]);
+])
 
-document.body.appendChild(bar);
+document.body.appendChild(bar)
 
 function fetchMockList () {
   return fetch('/mocklist.json').then(function (response) {
     return response.json().then(function (json) {
-      mocklist = window.mocklist = json;
-      return mocklist;
-    });
-  });
+      window.mocklist = json
+      return json
+    })
+  })
 }
 
 function fetchMock (mockname) {
-  return fetch(mockname).then(function(response) {
+  return fetch(mockname).then(function (response) {
     if (response.status === 500) {
-      return new Promise(function(resolve, reject) {
+      return new Promise(function (resolve, reject) {
         response.json().then(function (error) {
-          reject(error.error + ': ' + error.message);
-        });
-      });
+          reject(error.error + ': ' + error.message)
+        })
+      })
     }
     return response.json().then(function (json) {
-      mock = window.mock = json;
-      return mock;
+      mock = window.mock = json
+      return mock
     }, function () {
-      throw new Error('Unable to find mock "' + mockname + '"');
-    });
-  });
+      throw new Error('Unable to find mock "' + mockname + '"')
+    })
+  })
 }
 
 function plotMock (filename) {
-  if (!filename || filename.length === 0) return;
+  if (!filename || filename.length === 0) return
 
-  filename = filename.replace(/^#/, '');
+  filename = filename.replace(/^#/, '')
   if (!/\.json$/.test(filename)) {
-    filename += '.json';
+    filename += '.json'
   }
   return fetchMock(filename).then(function (mock) {
-    if (gd) document.body.removeChild(gd);
-    gd = window.gd = h('div', {id: 'graph'});
-    document.body.appendChild(gd);
-    console.log("Plotting mock", filename, mock);
+    if (gd) document.body.removeChild(gd)
+    gd = window.gd = h('div', {id: 'graph'})
+    document.body.appendChild(gd)
+    console.log('Plotting mock', filename, mock)
 
-    window.removeEventListener('hashchange', plotFromHash);
-    window.location.hash = filename.replace(/\.json$/, '');
-    window.addEventListener('hashchange', plotFromHash);
+    window.removeEventListener('hashchange', plotFromHash)
+    window.location.hash = filename.replace(/\.json$/, '')
+    window.addEventListener('hashchange', plotFromHash)
 
-    Plotly.plot(gd, mock);
+    Plotly.plot(gd, mock)
   }, function (err) {
-    console.error(err);
+    console.error(err)
   })
 }
 
 function plotFromHash () {
-  return plotMock(window.location.hash);
+  return plotMock(window.location.hash)
 }
 
 function updateMockMenu () {
-  var i;
-  var mockSelect = bar.querySelector('#mock-selector');
+  var mockSelect = bar.querySelector('#mock-selector')
   if (!mockSelect) {
     mockSelect = h('input', {
       type: 'text',
       id: 'mock-selector',
-      name: "Mock Selector",
-      placeholder: "Search mocks",
+      name: 'Mock Selector',
+      placeholder: 'Search mocks',
       value: window.location.hash.replace(/^#/, '').replace(/\.json$/, '')
-    });
-    bar.appendChild(mockSelect);
+    })
+    bar.appendChild(mockSelect)
 
     mockSelect.addEventListener('change', function () {
-      plotMock(mockSelect.value);
-    });
+      plotMock(mockSelect.value)
+    })
   }
 
-  //var options = mockSelect.querySelectorAll('option');
-  //for (i = 0; i < options.length; i++) {
-    //mockSelect.removeChild(options[i]);
-  //}
+  // var options = mockSelect.querySelectorAll('option');
+  // for (i = 0; i < options.length; i++) {
+    // mockSelect.removeChild(options[i]);
+  // }
 
   fetchMockList().then(function (list) {
-    //for (i = 0; i < list.length; i++) {
-      //mockSelect.appendChild(h('option', {value: list[i]}, list[i].replace(/\.json/, '')));
-    //}
+    // for (i = 0; i < list.length; i++) {
+      // mockSelect.appendChild(h('option', {value: list[i]}, list[i].replace(/\.json/, '')));
+    // }
 
     if (autocomplete) {
-      autocomplete.destroy();
+      autocomplete.destroy()
     }
 
-    autocomplete = new autoComplete({
+    window.autocomplete = autocomplete = new autoComplete({
       selector: mockSelect,
       minChars: 1,
       source: function (term, response) {
-        var re = new RegExp(term.split("").join('.*'), 'i');
-        response(list.filter(i => re.test(i)).map(i => i.replace(/\.json$/, '')));
+        var re = new RegExp(term.split('').join('.*'), 'i')
+        response(list.filter(i => re.test(i)).map(i => i.replace(/\.json$/, '')))
       }
-    });
-  });
+    })
+  })
 }
 
-updateMockMenu();
+updateMockMenu()
 
-window.addEventListener('hashchange', plotFromHash);
-plotFromHash();
+window.addEventListener('hashchange', plotFromHash)
+plotFromHash()

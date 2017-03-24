@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "node server.js",
+    "lint": "standard",
+    "lint-fix": "standard --fix"
+  },
   "keywords": [],
   "author": "",
   "license": "MIT",
