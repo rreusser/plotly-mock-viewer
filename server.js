@@ -25,7 +25,9 @@ function resolveMock (name) {
     var lines = data.slice(0, position).split(/\n/);
     var next = data.slice(position).split(/\n/)[0];
     var linenum = lines.length;
-    e.message = e.message.replace(/position [0-9]*/, 'line ' + linenum + ' of "' + name.replace(/.*\//,'') + '"') + '\n' +
+    e.message = e.message
+      .replace(/in JSON at position [0-9]*/, 'at line ' + linenum + ' of "' + name.replace(/.*\//,'') + '":') +
+      '\n' +
       lines.map((l, i) => (
         (i === linenum - 1 ? '-->' : '   ') +
         leftpad(i + 1, 4, ' ') + ': ' + l)).slice(-5).join('\n') +
