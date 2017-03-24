@@ -13,11 +13,13 @@ html, body {
   paddng: 0;
 }
 #mock-selector {
+  display: block;
   width: 400px;
   margin: 5px;
 }
 #graph {
   border: 1px solid rgb(65,120,223);
+  display: inline-block;
 }
 `)
 
