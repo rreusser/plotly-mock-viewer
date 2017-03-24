@@ -27,7 +27,8 @@ html, body {
   float: right;
   background-color: white;
   display: block;
-  width: 400px;
+  width: 300px;
   margin-top: 10px;
+  margin-right: 10px;
   outline: none;
 }
