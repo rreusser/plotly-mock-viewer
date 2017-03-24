@@ -8,8 +8,8 @@ var autocomplete
 css(fs.readFileSync(__dirname + '/assets/auto-complete.css', 'utf8'))
 css(fs.readFileSync(__dirname + '/assets/styles.css', 'utf8'))
 
-var bar = h('div', {id: 'bar'}, [
-  h('h3', 'plotly.js mock viewer')
+var bar = h('div', {id: 'bar', class: 'clearfix'}, [
+  h('h3', h('a', {href: 'https://github.com/plotly/plotly.js', target: '_blank'}, 'plotly.js mock viewer'))
 ])
 
 document.body.appendChild(bar)
