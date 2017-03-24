@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "build": "browserify production.js -t es2040 -t brfs | indexhtmlify | metadataify | htmlinjectscript \"https://cdn.plot.ly/plotly-latest.min.js\" > index.html",
+    "build": "browserify production.js -t es2040 -t brfs | indexhtmlify | metadataify | htmlinjectscript \"https://cdn.plot.ly/plotly-latest.js\" > index.html",
     "lint": "standard",
     "lint-fix": "standard --fix"
   },
