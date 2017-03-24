@@ -8,8 +8,8 @@ var html = require('simple-html-index');
 var brfs = require('brfs');
 var hyperstream = require('hyperstream');
 
-var mockpath = path.join(path.dirname(require.resolve('plotly.js')), '../test/image/mocks/');
 var plotlypath = path.join(path.dirname(require.resolve('plotly.js')), '../');
+var mockpath = path.join(plotlypath, 'test/image/mocks/');
 
 function fetchMockList () {
   return JSON.stringify(fs.readdirSync(mockpath).filter(name => /\.json$/.test(name)));
@@ -22,7 +22,12 @@ function resolveMock (name) {
 var server = budo('./index.js', {
   live: true,
   open: true,
-  watchGlob: [path.join(plotlypath, '*'), path.join(plotlypath, '**/*')],
+  host: 'localhost',
+  watchGlob: [
+    path.join(plotlypath, 'test'),
+    path.join(plotlypath, 'src'),
+    path.join(plotlypath, 'lib'),
+  ],
   browserify: { transform: [brfs, es2040] },
   middleware: [function (req, res, next) {
     if (/mocklist\.json$/.test(req.url)) {
@@ -39,9 +44,7 @@ var server = budo('./index.js', {
   }],
   defaultIndex: function (params, req) {
     return html(params).pipe(hyperstream({head: {
-      _appendHtml:
-        '<style type="text/css">' + fs.readFileSync(path.join(__dirname, 'assets/auto-complete.css'), 'utf8') + '</style>' +
-        '<script type="text/javascript">' + fs.readFileSync(path.join(__dirname, 'assets/auto-complete.min.js'), 'utf8') + '</script>'
+      _appendHtml: '<script type="text/javascript">' + fs.readFileSync(path.join(__dirname, 'assets/auto-complete.min.js'), 'utf8') + '</script>'
     }}))
   }
 }).on('connect', function (ev) {

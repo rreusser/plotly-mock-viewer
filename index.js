@@ -8,8 +8,16 @@ var autocomplete;
 css(fs.readFileSync(__dirname + '/assets/auto-complete.css', 'utf8'));
 
 css(`
+html, body {
+  margin: 0;
+  paddng: 0;
+}
 #mock-selector {
   width: 400px;
+  margin: 5px;
+}
+#graph {
+  border: 1px solid rgb(65,120,223);
 }
 `)
 
@@ -45,7 +53,7 @@ function plotMock (filename) {
     console.log("Plotting mock", filename, mock);
 
     window.removeEventListener('hashchange', plotFromHash);
-    window.location.hash = filename;
+    window.location.hash = filename.replace(/\.json$/, '');
     window.addEventListener('hashchange', plotFromHash);
 
     Plotly.plot(gd, mock);
@@ -66,6 +74,7 @@ function updateMockMenu () {
       type: 'text',
       id: 'mock-selector',
       name: "Mock Selector",
+      placeholder: "Search mocks",
       value: window.location.hash.replace(/^#/, '').replace(/\.json$/, '')
     });
     document.body.appendChild(mockSelect);
@@ -76,7 +85,6 @@ function updateMockMenu () {
   }
 
   //var options = mockSelect.querySelectorAll('option');
-
   //for (i = 0; i < options.length; i++) {
     //mockSelect.removeChild(options[i]);
   //}
