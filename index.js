@@ -42,12 +42,14 @@ function fetchMock (mockname) {
 }
 
 function plotMock (filename) {
-  if (gd) document.body.removeChild(gd);
+  if (!filename || filename.length === 0) return;
+
   filename = filename.replace(/^#/, '');
   if (!/\.json$/.test(filename)) {
     filename += '.json';
   }
   return fetchMock(filename).then(function (mock) {
+    if (gd) document.body.removeChild(gd);
     gd = window.gd = h('div', {id: 'graph'});
     document.body.appendChild(gd);
     console.log("Plotting mock", filename, mock);
