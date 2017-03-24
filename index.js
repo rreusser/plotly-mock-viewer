@@ -34,6 +34,13 @@ function fetchMockList () {
 
 function fetchMock (mockname) {
   return fetch(mockname).then(function(response) {
+    if (response.status === 500) {
+      return new Promise(function(resolve, reject) {
+        response.json().then(function (error) {
+          reject(error.error + ': ' + error.message);
+        });
+      });
+    }
     return response.json().then(function (json) {
       mock = window.mock = json;
       return mock;

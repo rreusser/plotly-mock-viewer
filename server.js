@@ -16,12 +16,24 @@ function fetchMockList () {
 }
 
 function resolveMock (name) {
-  return fs.readFileSync(path.join(mockpath, name));
+  var data = fs.readFileSync(path.join(mockpath, name)).toString();
+  try {
+    JSON.parse(data);
+  } catch (e) {
+    var position = parseInt(e.message.match(/at position ([0-9]*)/)[1])
+    var lines = data.slice(0, position).split(/\n/);
+    var next = data.slice(position).split(/\n/)[0];
+    var linenum = lines.length;
+    e.message = e.message.replace(/position [0-9]*/, 'line ' + linenum + ' of "' + name.replace(/.*\//,'') + '"') + '\n' +
+      lines.map((l, i) => ((i + 1) + ': ' + l)).slice(-5).join('\n') + next;
+    throw e;
+  }
+  return data
 }
 
 var server = budo('./index.js', {
   live: true,
-  open: true,
+  //open: true,
   host: 'localhost',
   watchGlob: [
     path.join(plotlypath, 'test'),
@@ -37,7 +49,12 @@ var server = budo('./index.js', {
     }
   }, function (req, res, next) {
     if (/\.json$/.test(req.url)) {
-      res.end(resolveMock(req.url));
+      try {
+        res.end(resolveMock(req.url));
+      } catch (e) {
+        res.statusCode = 500
+        res.end(JSON.stringify({error: 'Invalid JSON', message: e.message}));
+      }
     } else {
       next();
     }
