@@ -39,7 +39,7 @@ function resolveMock (name) {
 
 var server = budo('./index.js', {
   live: true,
-  //open: true,
+  open: true,
   host: 'localhost',
   watchGlob: [
     path.join(plotlypath, 'test'),
