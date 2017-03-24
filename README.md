@@ -6,9 +6,9 @@
 
 A budo-based live-reloading standalone viewer for plotly mocks. Advantages:
 
-- refetches mock list on each reload (no need to restart server when mocks change)
+- refetches mock list on each reload (no need to restart server when mock files move around)
 - live reload (devtools server was slow to compile and threw error more often than not as a result when reloading)
-- JSON error messages that propagate to the browser console
+- Detailed JSON error messages that propagate to the browser console 🎉
 
 To use:
 
