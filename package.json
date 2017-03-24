@@ -17,6 +17,7 @@
     "h": "^0.1.0",
     "hyperstream": "^1.2.2",
     "insert-css": "^2.0.0",
+    "pad-left": "^2.1.0",
     "pkg-up": "^1.0.0",
     "simple-html-index": "^1.5.0"
   }

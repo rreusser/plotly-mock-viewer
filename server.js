@@ -7,6 +7,7 @@ var es2040 = require('es2040')
 var html = require('simple-html-index');
 var brfs = require('brfs');
 var hyperstream = require('hyperstream');
+var leftpad = require('pad-left');
 
 var plotlypath = path.join(path.dirname(require.resolve('plotly.js')), '../');
 var mockpath = path.join(plotlypath, 'test/image/mocks/');
@@ -25,7 +26,10 @@ function resolveMock (name) {
     var next = data.slice(position).split(/\n/)[0];
     var linenum = lines.length;
     e.message = e.message.replace(/position [0-9]*/, 'line ' + linenum + ' of "' + name.replace(/.*\//,'') + '"') + '\n' +
-      lines.map((l, i) => ((i + 1) + ': ' + l)).slice(-5).join('\n') + next;
+      lines.map((l, i) => (
+        (i === linenum - 1 ? '-->' : '   ') +
+        leftpad(i + 1, 4, ' ') + ': ' + l)).slice(-5).join('\n') +
+        next;
     throw e;
   }
   return data
