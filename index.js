@@ -6,7 +6,7 @@ var css = require('insert-css')
 var autocomplete
 
 css(fs.readFileSync(__dirname + '/assets/auto-complete.css', 'utf8'))
-css(fs.readFileSync(__dirname + '/styles.css', 'utf8'))
+css(fs.readFileSync(__dirname + '/assets/styles.css', 'utf8'))
 
 var bar = h('div', {id: 'bar'}, [
   h('h3', 'plotly.js mock viewer')
