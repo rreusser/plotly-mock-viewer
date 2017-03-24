@@ -1,0 +1,33 @@
+html, body {
+  margin: 0;
+  paddng: 0;
+}
+
+#mock-selector {
+}
+
+#graph {
+  border: 1px solid #ccc;
+  display: inline-block;
+}
+
+#bar {
+  background-color: rgb(65,120,223);
+}
+
+#bar h3 {
+  margin: 5px;
+  font-family: monospace;
+  display: inline-block;
+  color: white;
+  padding: 5px;
+}
+
+#bar input {
+  float: right;
+  background-color: white;
+  display: block;
+  width: 400px;
+  margin-top: 10px;
+  outline: none;
+}

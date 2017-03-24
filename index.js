@@ -6,22 +6,13 @@ var css = require('insert-css');
 var autocomplete;
 
 css(fs.readFileSync(__dirname + '/assets/auto-complete.css', 'utf8'));
+css(fs.readFileSync(__dirname + '/styles.css', 'utf8'));
 
-css(`
-html, body {
-  margin: 0;
-  paddng: 0;
-}
-#mock-selector {
-  display: block;
-  width: 400px;
-  margin: 5px;
-}
-#graph {
-  border: 1px solid rgb(65,120,223);
-  display: inline-block;
-}
-`)
+var bar = h('div', {id: 'bar'}, [
+  h('h3', 'plotly.js mock viewer')
+]);
+
+document.body.appendChild(bar);
 
 function fetchMockList () {
   return fetch('/mocklist.json').then(function (response) {
@@ -79,7 +70,7 @@ function plotFromHash () {
 
 function updateMockMenu () {
   var i;
-  var mockSelect = document.querySelector('#mock-selector');
+  var mockSelect = bar.querySelector('#mock-selector');
   if (!mockSelect) {
     mockSelect = h('input', {
       type: 'text',
@@ -88,7 +79,7 @@ function updateMockMenu () {
       placeholder: "Search mocks",
       value: window.location.hash.replace(/^#/, '').replace(/\.json$/, '')
     });
-    document.body.appendChild(mockSelect);
+    bar.appendChild(mockSelect);
 
     mockSelect.addEventListener('change', function () {
       plotMock(mockSelect.value);
