@@ -37,10 +37,11 @@ function resolveMock (name) {
   return data
 }
 
-budo('./index.js', {
+budo('./development.js', {
   live: true,
   open: true,
   host: 'localhost',
+  forceDefaultIndex: true,
   watchGlob: [
     path.join(plotlypath, 'test'),
     path.join(plotlypath, 'src'),
@@ -66,9 +67,7 @@ budo('./index.js', {
     }
   }],
   defaultIndex: function (params, req) {
-    return html(params).pipe(hyperstream({head: {
-      _appendHtml: '<script type="text/javascript">' + fs.readFileSync(path.join(__dirname, 'assets/auto-complete.js'), 'utf8') + '</script>'
-    }}))
+    return html(params);
   }
 }).on('connect', function (ev) {
   console.log('Server running on %s', ev.uri)
