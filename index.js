@@ -59,7 +59,7 @@ module.exports = function (config) {
         window.location.hash = filename.replace(/\.json$/, '')
         window.addEventListener('hashchange', plotFromHash)
 
-        Plotly.plot(gd, mock)
+        Plotly.newPlot(gd, mock)
       }, function (err) {
         console.error(err)
       })
