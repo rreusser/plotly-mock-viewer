@@ -42,6 +42,12 @@ module.exports = function (config) {
       })
     }
 
+    function updateGraphDiv () {
+      if (gd) document.body.removeChild(gd)
+      gd = window.gd = h('div', {id: 'graph'})
+      document.body.appendChild(gd)
+    }
+
     function plotMock (filename) {
       if (!filename || filename.length === 0) return
 
@@ -50,9 +56,7 @@ module.exports = function (config) {
         filename += '.json'
       }
       return fetchMock(filename).then(function (mock) {
-        if (gd) document.body.removeChild(gd)
-        gd = window.gd = h('div', {id: 'graph'})
-        document.body.appendChild(gd)
+        updateGraphDiv()
         console.log('Plotting mock', filename, mock)
 
         window.removeEventListener('hashchange', plotFromHash)
@@ -114,5 +118,6 @@ module.exports = function (config) {
     updateMockMenu()
 
     window.addEventListener('hashchange', plotFromHash)
+    updateGraphDiv()
     plotFromHash()
 };
