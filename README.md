@@ -1,4 +1,4 @@
-# plotly-standalone-mock-viewer
+# plotly-mock-viewer
 
 <img src="./screenshot.png" width="400">
 
@@ -13,13 +13,14 @@ A budo-based live-reloading standalone viewer for plotly mocks. Advantages:
 To use:
 
 ```bash
-$ git clone https://github.com/rreusser/plotly-standalone-mock-viewer.git
-$ cd plotly-standalone-mock-viewer
-$ <edit package.json to point to your local plotly.js repo>
-$ npm install -g linklocal
-$ linklocal
-$ npm install
-$ ./server.js
+$ npm i -g plotly-mock-viewer
+```
+
+And then from within your local plotly.js directory:
+
+```
+$ cd /path/to/my/local/plotly.js
+$ plotly-mock-viewer
 ```
 
 ## License

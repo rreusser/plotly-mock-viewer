@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head><script src="https://cdn.plot.ly/plotly-latest.js"></script>
-<title>plotly-standalone-mock-viewer</title>
+<title>plotly-mock-viewer</title>
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-<meta charset=utf-8><meta name="application-name" content="plotly-standalone-mock-viewer">
-<meta name="subject" content="plotly-standalone-mock-viewer">
-<meta name="abstract" content="plotly-standalone-mock-viewer">
-<meta name="twitter:title" content="plotly-standalone-mock-viewer">
+<meta charset=utf-8><meta name="application-name" content="plotly-mock-viewer">
+<meta name="subject" content="plotly-mock-viewer">
+<meta name="abstract" content="plotly-mock-viewer">
+<meta name="twitter:title" content="plotly-mock-viewer">
 <meta name="twitter:card" content="summary">
-<meta itemprop="title" content="plotly-standalone-mock-viewer">
-<meta property="og:title" content="plotly-standalone-mock-viewer">
+<meta itemprop="title" content="plotly-mock-viewer">
+<meta property="og:title" content="plotly-mock-viewer">
 </head>
 <body></body>
 <script>
@@ -295,7 +295,7 @@ module.exports = autoComplete;
 
 var h = require('h');
 var css = require('insert-css');
-var AutoComplete = require('./assets/auto-complete');
+var AutoComplete = require('./../assets/auto-complete');
 
 module.exports = function (config) {
   var Plotly = config.Plotly;
@@ -412,7 +412,18 @@ module.exports = function (config) {
   window.addEventListener('hashchange', plotFromHash);
   plotFromHash();
 };
-},{"./assets/auto-complete":1,"h":3,"insert-css":4}],3:[function(require,module,exports){
+},{"./../assets/auto-complete":1,"h":4,"insert-css":5}],3:[function(require,module,exports){
+// For the prod build, plotly-latest.min.js is injected into the head tag and
+// so is available when this is run:
+var start = require('./index')({
+    Plotly: window.Plotly,
+    mockListUrl: 'https://api.github.com/repositories/45646037/contents/test/image/mocks',
+    mockBaseUrl: 'https://raw.githubusercontent.com/plotly/plotly.js/master/test/image/mocks/',
+    mockFilter: function (m) {
+        return m.name;
+    }
+});
+},{"./index":2}],4:[function(require,module,exports){
 ;(function () {
 
 function h() {
@@ -477,7 +488,7 @@ else
   this.h = h
 })()
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 var containers = []; // will store container HTMLElement references
 var styleElements = []; // will store {prepend: HTMLElement, append: HTMLElement}
 
@@ -537,17 +548,6 @@ function createStyleElement() {
 module.exports = insertCss;
 module.exports.insertCss = insertCss;
 
-},{}],5:[function(require,module,exports){
-// For the prod build, plotly-latest.min.js is injected into the head tag and
-// so is available when this is run:
-var start = require('./index')({
-    Plotly: window.Plotly,
-    mockListUrl: 'https://api.github.com/repositories/45646037/contents/test/image/mocks',
-    mockBaseUrl: 'https://raw.githubusercontent.com/plotly/plotly.js/master/test/image/mocks/',
-    mockFilter: function (m) {
-        return m.name;
-    }
-});
-},{"./index":2}]},{},[5]);
+},{}]},{},[3]);
 </script>
 </html>
