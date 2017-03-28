@@ -18,14 +18,14 @@ $ npm i -g plotly-mock-viewer
 
 ## Usage
 
-From within your local plotly.js directory:
+From within your local plotly.js directory it functions as a live-reloading dev server:
 
 ```
 $ cd /path/to/my/local/plotly.js
 $ plotly-mock-viewer
 ```
 
-If you want to specify a particular CDN version of plotly.js, you can provide that as an argument:
+If you want to use a particular CDN version of plotly.js instead, you can provide that as an argument:
 
 ```
 $ plotly-mock-viewer https://cdn.plot.ly/plotly-1.20.0.js
