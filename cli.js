@@ -9,7 +9,8 @@ var args = require('minimist')(process.argv.slice(2), {
     v: 'version',
     l: 'latest',
     r: 'remote-mocks',
-    h: 'help'
+    h: 'help',
+    m: 'mapbox-access-token'
   },
   boolean: [
     'remote-mocks'
@@ -29,26 +30,31 @@ function printWarning (message) {
   console.log('plotly-mock-viewer: Warning: ' + message)
 }
 
-var opts = {};
-var hasPlotlySrc = false
+var opts = {isCDN: false};
 
 if (args._[0]) {
   opts.plotlySrc = args._[0]
-  hasPlotlySrc = true;
+  opts.isCDN = true;
 }
 
 if (args.version) {
   opts.plotlySrc = 'https://cdn.plot.ly/plotly-' + args.version + '.js'
+  opts.isCDN = true;
   console.log('plotly-mock-viewer: using CDN version of plotly ' + opts.plotlySrc);
 }
 
 if (args.latest) {
   opts.plotlySrc = 'https://cdn.plot.ly/plotly-latest.js'
+  opts.isCDN = true;
   console.log('plotly-mock-viewer: using CDN version of plotly ' + opts.plotlySrc);
 }
 
 if (args['remote-mocks']) {
   opts.remoteMocks = true
+}
+
+if (args['mapbox-access-token']) {
+  opts.mapboxAccessToken = args['mapbox-access-token']
 }
 
 pkgUp().then(function (plotlyPkg) {

@@ -45,13 +45,15 @@ Usage: plotly-mock-viewer [remote plotly url] {OPTIONS}
 
 Options:
 
-        --latest, -l  Use plotly.js latest version from CDN
+             --latest, -l  Use plotly.js latest version from CDN
 
-       --version, -v  Use a specific version of plotly.js from CDN
+            --version, -v  Use a specific version of plotly.js from CDN
 
-  --remote-mocks, -r  Use mocks from github.com/plotly/plotly.js master branch
+       --remote-mocks, -r  Use mocks from github.com/plotly/plotly.js master branch
 
-          --help, -h  Display this message
+               --help, -h  Display this message
+
+--mapbox-access-token, -m  Specify a mapbox access token
 ```
 
 ## Development

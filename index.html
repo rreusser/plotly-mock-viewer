@@ -317,6 +317,14 @@ module.exports = function (config) {
   var gd;
   var autocomplete;
 
+  if (!window.plotlyCredentials || !window.plotlyCredentials.MAPBOX_ACCESS_TOKEN) {
+    console.warn('Warning: No valid mapbox access token found. To set manually, run `Plotly.setConfig({mapboxAccessToken: YOUR_TOKEN_HERE})`');
+  } else {
+    Plotly.setPlotConfig({
+      mapboxAccessToken: window.plotlyCredentials.MAPBOX_ACCESS_TOKEN
+    });
+  }
+
   css(".autocomplete-suggestions {\n    text-align: left;\n    cursor: default;\n    border: 1px solid #ccc;\n    border-top: 0;\n    background: #fff;\n    box-shadow: -1px 1px 3px rgba(0,0,0,.1);\n\n    /* core styles should not be changed */\n    position: absolute;\n    display: none;\n    z-index: 9999;\n    max-height: 80vh;\n    overflow: hidden;\n    overflow-y: auto;\n    box-sizing: border-box;\n}\n\n.autocomplete-suggestion {\n  font-family: 'Helvetica', sans-serif;\n  position: relative;\n  padding: 0 .6em;\n  line-height: 23px;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  font-size: 0.85em;\n  color: #333;\n}\n\n.autocomplete-suggestion b {\n  font-weight: normal;\n  color: #1f8dd6;\n}\n\n.autocomplete-suggestion.selected {\n  background: #f0f0f0;\n}\n");
   css("html, body {\n  margin: 0;\n  paddng: 0;\n}\n\n.clearfix:after {\n  content: \"\";\n  display: table;\n  clear: both;\n}\n\n#graph {\n  border: 1px solid #ccc;\n  display: inline-block;\n}\n\n#bar {\n  background-color: rgb(65,120,223);\n}\n\n#bar h3 {\n  font-weight: normal;\n  margin: 5px;\n  font-family: monospace;\n  display: inline-block;\n  padding: 5px;\n}\n\n#bar h3 a {\n  color: white;\n  text-decoration: none;\n}\n\n#bar input {\n  float: right;\n  background-color: white;\n  display: block;\n  width: 300px;\n  margin-top: 10px;\n  margin-right: 10px;\n  outline: none;\n}\n");
 
