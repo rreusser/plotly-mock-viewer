@@ -10,17 +10,49 @@ A budo-based live-reloading standalone viewer for plotly mocks. Advantages:
 - live reload (devtools server was slow to compile and threw error more often than not as a result when reloading)
 - Detailed JSON error messages that propagate to the browser console 🎉
 
-To use:
+## Installation
 
 ```bash
 $ npm i -g plotly-mock-viewer
 ```
 
-And then from within your local plotly.js directory:
+## Usage
+
+From within your local plotly.js directory:
 
 ```
 $ cd /path/to/my/local/plotly.js
 $ plotly-mock-viewer
+```
+
+If you want to specify a particular CDN version of plotly.js, you can provide that as an argument:
+
+```
+$ plotly-mock-viewer https://cdn.plot.ly/plotly-latest.js
+```
+
+The full list of command line options is:
+
+```
+Usage: plotly-mock-viewer [remote plotly url] {OPTIONS}
+
+Options:
+
+        --latest, -l  Use plotly.js latest version from CDN
+
+       --version, -v  Use a specific version of plotly.js from CDN
+
+  --remote-mocks, -r  Use mocks from github.com/plotly/plotly.js master branch
+
+          --help, -h  Display this message
+```
+
+## Development
+
+`plotly.js` is a dev dependency only. So that you can develop the viewer itself, you can start the server using the dev version of plotly.js with:
+
+```
+$ npm start
 ```
 
 ## License

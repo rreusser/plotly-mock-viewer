@@ -49,8 +49,8 @@ function autoComplete(options) {
   }
   function live(elClass, event, cb, context) {
     addEvent(context || document, event, function (e) {
-      var found,
-          el = e.target || e.srcElement;
+      var found;
+      var el = e.target || e.srcElement;
       while (el && !(found = hasClass(el, elClass))) {
         el = el.parentElement;
       }
@@ -292,6 +292,17 @@ function autoComplete(options) {
 
 module.exports = autoComplete;
 },{}],2:[function(require,module,exports){
+// For the prod build, plotly-latest.min.js is injected into the head tag and
+// so is available when this is run:
+require('./viewer')({
+  Plotly: window.Plotly,
+  mockListUrl: 'https://api.github.com/repositories/45646037/contents/test/image/mocks',
+  mockBaseUrl: 'https://raw.githubusercontent.com/plotly/plotly.js/master/test/image/mocks/',
+  mockFilter: function (m) {
+    return m.name;
+  }
+});
+},{"./viewer":3}],3:[function(require,module,exports){
 
 var h = require('h');
 var css = require('insert-css');
@@ -311,6 +322,7 @@ module.exports = function (config) {
 
   function fetchMockList() {
     return fetch(config.mockListUrl).then(function (response) {
+      console.info('Fetched mocks from', config.mockListUrl);
       return response.json().then(function (json) {
         return window.mocklist = json.map(config.mockFilter);
       });
@@ -318,7 +330,9 @@ module.exports = function (config) {
   }
 
   function fetchMock(mockname) {
-    return fetch(config.mockBaseUrl + mockname.replace(/^\//, '')).then(function (response) {
+    var remoteUrl = config.mockBaseUrl + mockname.replace(/^\//, '');
+    return fetch(remoteUrl).then(function (response) {
+      console.info('Fetched mock from', remoteUrl);
       if (response.status === 500) {
         return new Promise(function (resolve, reject) {
           response.json().then(function (error) {
@@ -334,6 +348,12 @@ module.exports = function (config) {
     });
   }
 
+  function updateGraphDiv() {
+    if (gd) document.body.removeChild(gd);
+    gd = window.gd = h('div', { id: 'graph' });
+    document.body.appendChild(gd);
+  }
+
   function plotMock(filename) {
     if (!filename || filename.length === 0) return;
 
@@ -342,10 +362,9 @@ module.exports = function (config) {
       filename += '.json';
     }
     return fetchMock(filename).then(function (mock) {
-      if (gd) document.body.removeChild(gd);
-      gd = window.gd = h('div', { id: 'graph' });
-      document.body.appendChild(gd);
-      console.log('Plotting mock', filename, mock);
+      console.info('Plotting mock', filename, mock);
+
+      updateGraphDiv();
 
       window.removeEventListener('hashchange', plotFromHash);
       window.location.hash = filename.replace(/\.json$/, '');
@@ -374,20 +393,11 @@ module.exports = function (config) {
       bar.appendChild(mockSelect);
 
       mockSelect.addEventListener('change', function () {
-        plotMock(mockSelect.value);
+        window.location.hash = mockSelect.value;
       });
     }
 
-    // var options = mockSelect.querySelectorAll('option');
-    // for (i = 0; i < options.length; i++) {
-    // mockSelect.removeChild(options[i]);
-    // }
-
     fetchMockList().then(function (list) {
-      // for (i = 0; i < list.length; i++) {
-      // mockSelect.appendChild(h('option', {value: list[i]}, list[i].replace(/\.json/, '')));
-      // }
-
       if (autocomplete) {
         autocomplete.destroy();
       }
@@ -410,20 +420,10 @@ module.exports = function (config) {
   updateMockMenu();
 
   window.addEventListener('hashchange', plotFromHash);
+  updateGraphDiv();
   plotFromHash();
 };
-},{"./../assets/auto-complete":1,"h":4,"insert-css":5}],3:[function(require,module,exports){
-// For the prod build, plotly-latest.min.js is injected into the head tag and
-// so is available when this is run:
-var start = require('./index')({
-    Plotly: window.Plotly,
-    mockListUrl: 'https://api.github.com/repositories/45646037/contents/test/image/mocks',
-    mockBaseUrl: 'https://raw.githubusercontent.com/plotly/plotly.js/master/test/image/mocks/',
-    mockFilter: function (m) {
-        return m.name;
-    }
-});
-},{"./index":2}],4:[function(require,module,exports){
+},{"./../assets/auto-complete":1,"h":4,"insert-css":5}],4:[function(require,module,exports){
 ;(function () {
 
 function h() {
@@ -548,6 +548,6 @@ function createStyleElement() {
 module.exports = insertCss;
 module.exports.insertCss = insertCss;
 
-},{}]},{},[3]);
+},{}]},{},[2]);
 </script>
 </html>
