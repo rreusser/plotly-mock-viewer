@@ -320,6 +320,15 @@ module.exports = function (config) {
   var gd;
   var autocomplete;
 
+  console.groupCollapsed('%c-- Expand for instructions --', 'background-color:rgb(65,120,223);color:white;font-weight:bold');
+  console.log('This viewer exposes a number of global variables for easy inspection:');
+  console.log('    Plotly    the plotly instance');
+  console.log('        gd    the graph div');
+  console.log('      mock    the currently loaded mock');
+  console.log('  mocklist    a list of all available mocks');
+  console.log('plotMock()    fetch and plot a mock by name, e.g. plotMock(\'gl3d_bunny\')');
+  console.groupEnd('-- Expand for instructions --');
+
   if (!window.plotlyCredentials || !window.plotlyCredentials.MAPBOX_ACCESS_TOKEN) {
     console.warn('Warning: No valid mapbox access token found. To set manually, run `Plotly.setConfig({mapboxAccessToken: YOUR_TOKEN_HERE})`');
   } else {
@@ -449,6 +458,12 @@ module.exports = function (config) {
   window.addEventListener('hashchange', plotFromHash);
   updateGraphDiv();
   plotFromHash();
+
+  // Instead of exposing the function directly, add this layer of indirection
+  // to avoid double-plots due to the hashchange listener
+  window.plotMock = function (hash) {
+    window.location.hash = hash;
+  };
 };
 },{"./../assets/auto-complete":1,"h":4,"insert-css":5}],4:[function(require,module,exports){
 ;(function () {
