@@ -28,7 +28,13 @@ $ plotly-mock-viewer
 If you want to specify a particular CDN version of plotly.js, you can provide that as an argument:
 
 ```
-$ plotly-mock-viewer https://cdn.plot.ly/plotly-latest.js
+$ plotly-mock-viewer https://cdn.plot.ly/plotly-1.20.0.js
+```
+
+Which is equivalent to
+
+```
+$ plotly-mock-viewer -v 1.20.0
 ```
 
 The full list of command line options is:
