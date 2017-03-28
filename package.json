@@ -1,6 +1,6 @@
 {
   "name": "plotly-mock-viewer",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A budo-based live-reloading standalone viewer for plotly mocks",
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,10 @@
   },
   "bin": {
     "plotly-mock-viewer": "cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rreusser/plotly-mock-viewer.git"
   },
   "keywords": [],
   "author": "",
