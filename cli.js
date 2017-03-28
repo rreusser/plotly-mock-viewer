@@ -30,22 +30,28 @@ function printWarning (message) {
   console.log('plotly-mock-viewer: Warning: ' + message)
 }
 
-var opts = {isCDN: false};
+var opts = {
+  isCDN: false,
+  title: '@dev'
+};
 
 if (args._[0]) {
   opts.plotlySrc = args._[0]
   opts.isCDN = true;
+  opts.title = '@' + opts.plotlySrc
 }
 
 if (args.version) {
   opts.plotlySrc = 'https://cdn.plot.ly/plotly-' + args.version + '.js'
   opts.isCDN = true;
+  opts.title = '@' + args.version
   console.log('plotly-mock-viewer: using CDN version of plotly ' + opts.plotlySrc);
 }
 
 if (args.latest) {
   opts.plotlySrc = 'https://cdn.plot.ly/plotly-latest.js'
   opts.isCDN = true;
+  opts.title = '@latest'
   console.log('plotly-mock-viewer: using CDN version of plotly ' + opts.plotlySrc);
 }
 
