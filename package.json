@@ -9,7 +9,7 @@
     "lint-fix": "standard --fix"
   },
   "bin": {
-    "plotly-mock-viewer": "node cli.js"
+    "plotly-mock-viewer": "cli.js"
   },
   "keywords": [],
   "author": "",
