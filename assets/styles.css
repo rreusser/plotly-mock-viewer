@@ -1,6 +1,7 @@
 html, body {
   margin: 0;
-  paddng: 0;
+  padding: 0;
+  text-align: center;
 }
 
 .clearfix:after {
@@ -12,10 +13,12 @@ html, body {
 #graph {
   border: 1px solid #ccc;
   display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #bar {
-  background-color: rgb(65,120,223);
+  background-color: #2391fe;
 }
 
 #bar h3 {
@@ -39,4 +42,14 @@ html, body {
   margin-top: 10px;
   margin-right: 10px;
   outline: none;
+  border-radius: 20px;
+  border: none;
+  padding: 3px 15px;
+}
+
+.bar-container {
+  max-width: 800px;
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
 }
