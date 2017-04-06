@@ -69,16 +69,12 @@ if (args['mock-dir']) {
   opts.mockPath = args['mock-dir']
 }
 
-console.log('opts.mockPath:', opts.mockPath);
-
 var plotlyPkg;
 if (args['plotly-dir']) {
   plotlyPkg = path.join(args['plotly-dir'], 'package.json');
 } else {
   plotlyPkg = pkgUp.sync();
 }
-
-console.log('plotlyPkg:', plotlyPkg);
 
 var pkg = JSON.parse(fs.readFileSync(plotlyPkg, 'utf8'))
 opts.plotlyPath = path.dirname(plotlyPkg)
