@@ -10,7 +10,9 @@ var args = require('minimist')(process.argv.slice(2), {
     l: 'latest',
     r: 'remote-mocks',
     h: 'help',
-    m: 'mapbox-access-token'
+    m: 'mapbox-access-token',
+    d: 'mock-dir',
+    p: 'plotly-dir',
   },
   boolean: [
     'remote-mocks'
@@ -63,15 +65,26 @@ if (args['mapbox-access-token']) {
   opts.mapboxAccessToken = args['mapbox-access-token']
 }
 
-pkgUp().then(function (plotlyPkg) {
-  var pkg = JSON.parse(fs.readFileSync(plotlyPkg, 'utf8'))
-  opts.plotlyPath = path.dirname(plotlyPkg)
+if (args['mock-dir']) {
+  opts.mockPath = args['mock-dir']
+}
 
-  if (!pkg || pkg.name !== 'plotly.js') {
-    opts.plotlyPath = path.join(path.dirname(require.resolve('plotly.js')), '../');
-  }
+console.log('opts.mockPath:', opts.mockPath);
 
-  startServer(opts);
-}).catch(function (err) {
-  printError(err);
-})
+var plotlyPkg;
+if (args['plotly-dir']) {
+  plotlyPkg = path.join(args['plotly-dir'], 'package.json');
+} else {
+  plotlyPkg = pkgUp.sync();
+}
+
+console.log('plotlyPkg:', plotlyPkg);
+
+var pkg = JSON.parse(fs.readFileSync(plotlyPkg, 'utf8'))
+opts.plotlyPath = path.dirname(plotlyPkg)
+
+if (!pkg || pkg.name !== 'plotly.js') {
+  opts.plotlyPath = path.join(path.dirname(require.resolve('plotly.js')), '../');
+}
+
+startServer(opts);
