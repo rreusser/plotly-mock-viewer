@@ -17,3 +17,6 @@ Options:
 
            --mock-dir, -d  A path to the directory containing mocks (by default,
                            test/image/mocks relative to the plotly directory)
+
+            --mathjax, -j  Load MathJax
+

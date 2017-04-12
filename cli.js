@@ -11,6 +11,7 @@ var args = require('minimist')(process.argv.slice(2), {
     r: 'remote-mocks',
     h: 'help',
     m: 'mapbox-access-token',
+    j: 'mathjax',
     d: 'mock-dir',
     p: 'plotly-dir',
   },
@@ -67,6 +68,10 @@ if (args['mapbox-access-token']) {
 
 if (args['mock-dir']) {
   opts.mockPath = args['mock-dir']
+}
+
+if (args.mathjax) {
+  opts.mathjax = true;
 }
 
 var plotlyPkg;

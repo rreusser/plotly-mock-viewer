@@ -55,6 +55,15 @@ Options:
                --help, -h  Display this message
 
 --mapbox-access-token, -m  Specify a mapbox access token
+
+         --plotly-dir, -p  A path to the local plotly directory (by default, looks
+                           upward to the nearest package.json)
+
+           --mock-dir, -d  A path to the directory containing mocks (by default,
+                           test/image/mocks relative to the plotly directory)
+
+            --mathjax, -j  Load MathJax
+
 ```
 
 ## Development
