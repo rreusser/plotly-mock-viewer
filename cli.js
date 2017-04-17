@@ -11,12 +11,14 @@ var args = require('minimist')(process.argv.slice(2), {
     r: 'remote-mocks',
     h: 'help',
     m: 'mapbox-access-token',
+    k: 'keep-meta',
     j: 'mathjax',
     d: 'mock-dir',
     p: 'plotly-dir',
   },
   boolean: [
-    'remote-mocks'
+    'remote-mocks',
+    'keep-meta'
   ],
 });
 
@@ -73,6 +75,8 @@ if (args['mock-dir']) {
 if (args.mathjax) {
   opts.mathjax = true;
 }
+
+opts.keepMeta = args['keep-meta'];
 
 var plotlyPkg;
 if (args['plotly-dir']) {
