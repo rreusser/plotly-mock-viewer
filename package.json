@@ -31,7 +31,7 @@
     "pkg-up": "^1.0.0",
     "simple-html-index": "^1.5.0",
     "string-to-stream": "^1.1.0",
-    "html-inject-script": "^1.1.0"
+    "html-inject-script": "git@github.com:rreusser/html-inject-script.git"
   },
   "devDependencies": {
     "compression": "^1.6.2",
