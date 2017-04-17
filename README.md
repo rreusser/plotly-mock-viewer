@@ -64,6 +64,8 @@ Options:
 
             --mathjax, -j  Load MathJax
 
+          --keep-meta, -k  Skip metadata-stripping browserify transform to enable
+                           inspection of the plot schema with metadata
 ```
 
 ## Development
