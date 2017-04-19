@@ -1,6 +1,6 @@
 {
   "name": "plotly-mock-viewer",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "A budo-based live-reloading standalone viewer for plotly mocks",
   "main": "index.js",
   "scripts": {
