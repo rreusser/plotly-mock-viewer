@@ -15,16 +15,18 @@ var args = require('minimist')(process.argv.slice(2), {
     j: 'mathjax',
     d: 'mock-dir',
     p: 'plotly-dir',
+    t: 'remote-topojson'
   },
   boolean: [
     'remote-mocks',
-    'keep-meta'
-  ],
-});
+    'keep-meta',
+    'remote-topojson'
+  ]
+})
 
 if (args.help) {
   process.stdout.write(fs.readFileSync(path.join(__dirname, 'lib/help.txt'), 'utf8'))
-  process.exit(0);
+  process.exit(0)
 }
 
 function printError (message) {
@@ -38,30 +40,34 @@ function printWarning (message) {
 var opts = {
   isCDN: false,
   title: '@dev'
-};
+}
 
 if (args._[0]) {
   opts.plotlySrc = args._[0]
-  opts.isCDN = true;
+  opts.isCDN = true
   opts.title = '@' + opts.plotlySrc
 }
 
 if (args.version) {
   opts.plotlySrc = 'https://cdn.plot.ly/plotly-' + args.version + '.js'
-  opts.isCDN = true;
+  opts.isCDN = true
   opts.title = '@' + args.version
-  console.log('plotly-mock-viewer: using CDN version of plotly ' + opts.plotlySrc);
+  console.log('plotly-mock-viewer: using CDN version of plotly ' + opts.plotlySrc)
 }
 
 if (args.latest) {
   opts.plotlySrc = 'https://cdn.plot.ly/plotly-latest.js'
-  opts.isCDN = true;
+  opts.isCDN = true
   opts.title = '@latest'
-  console.log('plotly-mock-viewer: using CDN version of plotly ' + opts.plotlySrc);
+  console.log('plotly-mock-viewer: using CDN version of plotly ' + opts.plotlySrc)
 }
 
 if (args['remote-mocks']) {
   opts.remoteMocks = true
+}
+
+if (args['remote-topojson']) {
+  opts.remoteTopojson = true
 }
 
 if (args['mapbox-access-token']) {
@@ -73,23 +79,23 @@ if (args['mock-dir']) {
 }
 
 if (args.mathjax) {
-  opts.mathjax = true;
+  opts.mathjax = true
 }
 
-opts.keepMeta = args['keep-meta'];
+opts.keepMeta = args['keep-meta']
 
-var plotlyPkg;
+var plotlyPkg
 if (args['plotly-dir']) {
-  plotlyPkg = path.join(args['plotly-dir'], 'package.json');
+  plotlyPkg = path.join(args['plotly-dir'], 'package.json')
 } else {
-  plotlyPkg = pkgUp.sync();
+  plotlyPkg = pkgUp.sync()
 }
 
 var pkg = JSON.parse(fs.readFileSync(plotlyPkg, 'utf8'))
 opts.plotlyPath = path.dirname(plotlyPkg)
 
 if (!pkg || pkg.name !== 'plotly.js') {
-  opts.plotlyPath = path.join(path.dirname(require.resolve('plotly.js')), '../');
+  opts.plotlyPath = path.join(path.dirname(require.resolve('plotly.js')), '../')
 }
 
-startServer(opts);
+startServer(opts)
