@@ -15,10 +15,12 @@ var args = require('minimist')(process.argv.slice(2), {
     j: 'mathjax',
     d: 'mock-dir',
     p: 'plotly-dir',
+    t: 'remote-topojson'
   },
   boolean: [
     'remote-mocks',
-    'keep-meta'
+    'keep-meta',
+    'remote-topojson'
   ]
 })
 
@@ -62,6 +64,10 @@ if (args.latest) {
 
 if (args['remote-mocks']) {
   opts.remoteMocks = true
+}
+
+if (args['remote-topojson']) {
+  opts.remoteTopojson = true
 }
 
 if (args['mapbox-access-token']) {

@@ -18,6 +18,9 @@ Options:
            --mock-dir, -d  A path to the directory containing mocks (by default,
                            test/image/mocks relative to the plotly directory)
 
+     -remote-topojson, -t  Use topojson from cdn.plot.ly (by default,
+                           dist/topojson relative to the plotly directory)
+
             --mathjax, -j  Load MathJax
 
           --keep-meta, -k  Skip metadata-stripping browserify transform to enable
