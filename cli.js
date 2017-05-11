@@ -6,6 +6,7 @@ var startServer = require('./lib/server')
 var pkgUp = require('pkg-up')
 var args = require('minimist')(process.argv.slice(2), {
   alias: {
+    s: 'plotly-src',
     v: 'version',
     l: 'latest',
     r: 'remote-mocks',
@@ -42,12 +43,6 @@ var opts = {
   title: '@dev'
 }
 
-if (args._[0]) {
-  opts.plotlySrc = args._[0]
-  opts.isCDN = true
-  opts.title = '@' + opts.plotlySrc
-}
-
 if (args.version) {
   opts.plotlySrc = 'https://cdn.plot.ly/plotly-' + args.version + '.js'
   opts.isCDN = true
@@ -60,6 +55,13 @@ if (args.latest) {
   opts.isCDN = true
   opts.title = '@latest'
   console.log('plotly-mock-viewer: using CDN version of plotly ' + opts.plotlySrc)
+}
+
+if (args['plotly-src']) {
+  opts.plotlySrc = args['plotly-src'];
+  opts.isCDN = false;
+  opts.title = '@dev';
+  consoe.log('plotly-mock-viewer: using local bunbled plotly.js: ' + opts.plotlySrc);
 }
 
 if (args['remote-mocks']) {
@@ -76,6 +78,11 @@ if (args['mapbox-access-token']) {
 
 if (args['mock-dir']) {
   opts.mockPath = args['mock-dir']
+}
+
+if (args._[0]) {
+  opts.mockPath = path.dirname(args._[0]);
+  opts.initialMock = path.basename(args._[0]);
 }
 
 if (args.mathjax) {
