@@ -30,13 +30,19 @@ $ plotly-mock-viewer
 If you want to use a particular CDN version of plotly.js instead, you can provide that as an argument:
 
 ```
-$ plotly-mock-viewer https://cdn.plot.ly/plotly-1.20.0.js
+$ plotly-mock-viewer -s https://cdn.plot.ly/plotly-1.20.0.js
 ```
 
 Which is equivalent to
 
 ```
 $ plotly-mock-viewer -v 1.20.0
+```
+
+You can also load a local mock directly (remote url = todo):
+
+```bash
+$ plotly-mock-viewer local-mock.json
 ```
 
 The full list of command line options is:
