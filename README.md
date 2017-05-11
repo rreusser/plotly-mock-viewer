@@ -42,7 +42,7 @@ $ plotly-mock-viewer -v 1.20.0
 The full list of command line options is:
 
 ```
-Usage: plotly-mock-viewer [remote plotly url] {OPTIONS}
+Usage: plotly-mock-viewer [plot json] {OPTIONS}
 
 Options:
 
@@ -55,6 +55,8 @@ Options:
                --help, -h  Display this message
 
 --mapbox-access-token, -m  Specify a mapbox access token
+
+         --plotly-src, -s  A local or remote plotly src url
 
          --plotly-dir, -p  A path to the local plotly directory (by default, looks
                            upward to the nearest package.json)
@@ -69,6 +71,7 @@ Options:
 
           --keep-meta, -k  Skip metadata-stripping browserify transform to enable
                            inspection of the plot schema with metadata
+
 ```
 
 ## Development
