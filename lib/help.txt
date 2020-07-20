@@ -28,3 +28,11 @@ Options:
           --keep-meta, -k  Skip metadata-stripping browserify transform to enable
                            inspection of the plot schema with metadata
 
+               --open, -O  Open browser window on boot (default: true)
+
+               --host, -H  Set the server host (default: 'localhost')
+
+               --port, -P  Set the port to run (default: 9966)
+
+          --live-port, -L  Set the live port to run (default: 35729)
+

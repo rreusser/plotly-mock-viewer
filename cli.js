@@ -16,12 +16,17 @@ var args = require('minimist')(process.argv.slice(2), {
     j: 'mathjax',
     d: 'mock-dir',
     p: 'plotly-dir',
-    t: 'remote-topojson'
+    t: 'remote-topojson',
+    O: 'open',
+    H: 'host',
+    P: 'port',
+    L: 'live-port'
   },
   boolean: [
     'remote-mocks',
     'keep-meta',
-    'remote-topojson'
+    'remote-topojson',
+    'open'
   ]
 })
 
@@ -103,6 +108,28 @@ opts.plotlyPath = path.dirname(plotlyPkg)
 
 if (!pkg || pkg.name !== 'plotly.js') {
   opts.plotlyPath = path.join(path.dirname(require.resolve('plotly.js')), '../')
+}
+
+if ('open' in args) {
+  opts.open = args['open']
+}
+
+if ('host' in args) {
+  opts.host = args['host']
+} else {
+  opts.host = 'localhost'
+}
+
+if ('port' in args) {
+  opts.port = args['port']
+} else {
+  opts.port = 9966
+}
+
+if ('live-port' in args) {
+  opts.livePort = args['live-port']
+} else {
+  opts.livePort = 35729
 }
 
 startServer(opts)
